@@ -5,7 +5,7 @@
 #  A simple ROS publisher & subscriber
 
 
-A simple ROS publisher & subscriber package written in C++.
+A simple ROS publisher & subscriber package written in C++. Vallidated on Ubuntu 20.04 LTS and ROS Noetic.
 
 ## Steps to run
 
