@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
    * is the number of messages that will be buffered up before beginning to throw
    * away the oldest ones.
    */
-  ros::Subscriber sub = n.subscribe("808X_pub_sub", 1000, pubSubCallback);
+  ros::Subscriber sub = n.subscribe("pub_sub", 1000, pubSubCallback);
 
   /**
    * ros::spin() will enter a loop, pumping callbacks.  With this version, all
