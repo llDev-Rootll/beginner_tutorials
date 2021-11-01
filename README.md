@@ -14,6 +14,7 @@ A simple ROS publisher & subscriber package written in C++.
 
     cd <path_to_ws>/catkin_ws/src
     git clone https://github.com/llDev-Rootll/beginner_tutorials.git
+    cd ../
     catkin_make
 
 In a terminal run :
