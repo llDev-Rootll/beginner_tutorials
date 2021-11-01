@@ -18,12 +18,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-#ifndef TALKER_H_
-#define TALKER_H_
+#ifndef INCLUDE_TALKER_H_
+#define INCLUDE_TALKER_H_
 
 
 #include <sstream>
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 
-#endif  // TALKER_H_
+#endif  // INCLUDE_TALKER_H_

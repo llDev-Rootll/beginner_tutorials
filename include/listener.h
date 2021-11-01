@@ -18,8 +18,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-#ifndef LISTENER_H_
-#define LISTENER_H_
+#ifndef INCLUDE_LISTENER_H_
+#define INCLUDE_LISTENER_H_
 
 
 #include <sstream>
@@ -33,4 +33,4 @@
 
 void pubSubCallback(const std_msgs::String::ConstPtr& msg);
 
-#endif  // LISTENER_H_
+#endif  // INCLUDE_LISTENER_H_
