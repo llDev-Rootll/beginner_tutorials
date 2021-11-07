@@ -65,6 +65,7 @@ int main(int argc, char **argv) {
    * NodeHandle destructed will close down the node.
    */
   ros::NodeHandle n;
+  
 
   /**
    * The advertise() function is how you tell ROS that you want to
@@ -86,10 +87,26 @@ int main(int argc, char **argv) {
   ros::Publisher chatter_pub = n.advertise<std_msgs::String>("pub_sub", 1000);
 
   // service created to change the output string
-  ros::ServiceServer service = 
+  ros::ServiceServer service =
   n.advertiseService("change_output", changeOutput);
+  int rate = 10;
 
-  ros::Rate loop_rate(10);
+  rate = atoi(argv[1]);
+  if ( rate >= 100 ) {
+    ROS_WARN_STREAM("Too high a frequency, resetting to 10");
+    rate = 10;
+  }
+  if ( rate == 0 ) {
+    ROS_FATAL("Frequency cannot be 0, resetting to 10");
+    rate = 10;
+  }
+  if ( rate < 0 ) {
+    ROS_ERROR("Frequency cannot be negative, resetting to 10");
+    rate = 10;
+  }
+
+  ROS_DEBUG_STREAM("Frequency set to : " << rate);
+  ros::Rate loop_rate(rate);
 
   /**
    * A count of how many messages we have sent. This is used to create
@@ -100,13 +117,13 @@ int main(int argc, char **argv) {
     /**
      * This is a message object. You stuff it with data, and then publish it.
      */
-    std_msgs::String msg;
+     std_msgs::String msg;
 
     std::stringstream ss;
     ss << new_string;
     msg.data = ss.str();
 
-    ROS_INFO_STREAM(msg.data.c_str());
+    // ROS_INFO_STREAM(msg.data.c_str());
 
     /**
      * The publish() function is how you send messages. The parameter
@@ -115,7 +132,7 @@ int main(int argc, char **argv) {
      * in the constructor above.
      */
     chatter_pub.publish(msg);
-
+    
     ros::spinOnce();
 
     loop_rate.sleep();
