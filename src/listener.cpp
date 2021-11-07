@@ -25,7 +25,9 @@
  * This tutorial demonstrates simple receipt of messages over the ROS system.
  */
 void pubSubCallback(const std_msgs::String::ConstPtr& msg) {
-  ROS_INFO("Message heard : [%s]", msg->data.c_str());
+  ROS_DEBUG_STREAM("Successfully received message");
+  ROS_INFO_STREAM("Message heard :" << msg->data.c_str());
+  
 }
 
 int main(int argc, char **argv) {
