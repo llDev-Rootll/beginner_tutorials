@@ -24,7 +24,7 @@
 #include "talker.h"
 #include "beginner_tutorials/string.h"
 
-
+// Default string
 extern std::string new_string = "Default string";
 
 /**
@@ -35,8 +35,7 @@ extern std::string new_string = "Default string";
  * @return returns true once it changes the string
  */
 bool changeOutput(beginner_tutorials::string::Request  &req,
-         beginner_tutorials::string::Response &res)
-{
+         beginner_tutorials::string::Response &res) {
   new_string = req.new_string;
 
   ROS_DEBUG_STREAM("String was changed to : " << new_string.c_str());
@@ -47,7 +46,7 @@ bool changeOutput(beginner_tutorials::string::Request  &req,
 /**
  * A simple ros publisher and subscriber.
  */
- 
+
 int main(int argc, char **argv) {
   /**
    * The ros::init() function needs to see argc and argv so that it can perform
@@ -65,7 +64,6 @@ int main(int argc, char **argv) {
    * NodeHandle destructed will close down the node.
    */
   ros::NodeHandle n;
-  
 
   /**
    * The advertise() function is how you tell ROS that you want to
@@ -92,19 +90,23 @@ int main(int argc, char **argv) {
   int rate = 10;
 
   rate = atoi(argv[1]);
+  // Checks if the rate is greater than 100
   if ( rate >= 100 ) {
     ROS_WARN_STREAM("Too high a frequency, resetting to 10");
     rate = 10;
   }
+  // Checks if the rate is equal to 0
   if ( rate == 0 ) {
     ROS_FATAL("Frequency cannot be 0, resetting to 10");
     rate = 10;
   }
+  // Checks if the rate is negative
   if ( rate < 0 ) {
     ROS_ERROR("Frequency cannot be negative, resetting to 10");
     rate = 10;
   }
 
+  // Set the frequency rate
   ROS_DEBUG_STREAM("Frequency set to : " << rate);
   ros::Rate loop_rate(rate);
 
@@ -132,7 +134,6 @@ int main(int argc, char **argv) {
      * in the constructor above.
      */
     chatter_pub.publish(msg);
-    
     ros::spinOnce();
 
     loop_rate.sleep();

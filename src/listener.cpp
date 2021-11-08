@@ -21,15 +21,19 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 #include "listener.h"
+
 /**
- * This tutorial demonstrates simple receipt of messages over the ROS system.
+ * @brief A callback function to print out the received messages
+ * 
+ * @param received message object
  */
 void pubSubCallback(const std_msgs::String::ConstPtr& msg) {
   ROS_DEBUG_STREAM("Successfully received message");
   ROS_INFO_STREAM("Message heard :" << msg->data.c_str());
-  
 }
-
+/**
+ * This tutorial demonstrates simple receipt of messages over the ROS system.
+ */
 int main(int argc, char **argv) {
   /**
    * The ros::init() function needs to see argc and argv so that it can perform
