@@ -22,9 +22,31 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 #include "talker.h"
+#include "beginner_tutorials/string.h"
+
+// Default string
+extern std::string new_string = "Default string";
+
+/**
+ * @brief A function that provides a service of changing the output string of the publisher
+ * 
+ * @param req service request
+ * @param res service response
+ * @return returns true once it changes the string
+ */
+bool changeOutput(beginner_tutorials::string::Request  &req,
+         beginner_tutorials::string::Response &res) {
+  new_string = req.new_string;
+
+  ROS_DEBUG_STREAM("String was changed to : " << new_string.c_str());
+  res.res_s = req.new_string;
+  return true;
+}
+
 /**
  * A simple ros publisher and subscriber.
  */
+
 int main(int argc, char **argv) {
   /**
    * The ros::init() function needs to see argc and argv so that it can perform
@@ -62,7 +84,31 @@ int main(int argc, char **argv) {
    */
   ros::Publisher chatter_pub = n.advertise<std_msgs::String>("pub_sub", 1000);
 
-  ros::Rate loop_rate(10);
+  // service created to change the output string
+  ros::ServiceServer service =
+  n.advertiseService("change_output", changeOutput);
+  int rate = 10;
+
+  rate = atoi(argv[1]);
+  // Checks if the rate is greater than 100
+  if ( rate >= 100 ) {
+    ROS_WARN_STREAM("Too high a frequency, resetting to 10");
+    rate = 10;
+  }
+  // Checks if the rate is equal to 0
+  if ( rate == 0 ) {
+    ROS_FATAL("Frequency cannot be 0, resetting to 10");
+    rate = 10;
+  }
+  // Checks if the rate is negative
+  if ( rate < 0 ) {
+    ROS_ERROR("Frequency cannot be negative, resetting to 10");
+    rate = 10;
+  }
+
+  // Set the frequency rate
+  ROS_DEBUG_STREAM("Frequency set to : " << rate);
+  ros::Rate loop_rate(rate);
 
   /**
    * A count of how many messages we have sent. This is used to create
@@ -73,13 +119,13 @@ int main(int argc, char **argv) {
     /**
      * This is a message object. You stuff it with data, and then publish it.
      */
-    std_msgs::String msg;
+     std_msgs::String msg;
 
     std::stringstream ss;
-    ss << "808X_Arunava_117720617" << count;
+    ss << new_string;
     msg.data = ss.str();
 
-    ROS_INFO("%s", msg.data.c_str());
+    // ROS_INFO_STREAM(msg.data.c_str());
 
     /**
      * The publish() function is how you send messages. The parameter
@@ -88,7 +134,6 @@ int main(int argc, char **argv) {
      * in the constructor above.
      */
     chatter_pub.publish(msg);
-
     ros::spinOnce();
 
     loop_rate.sleep();
