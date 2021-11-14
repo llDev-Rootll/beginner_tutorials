@@ -30,8 +30,7 @@ std::shared_ptr<ros::NodeHandle> nh;
  * and cross verifies the result string
  * 
  */
-TEST(TESTSuite, changeString)
-{
+TEST(TESTSuite, changeString) {
   ros::ServiceClient client = nh->serviceClient<beginner_tutorials::string>(
       "change_output");
   bool exists(client.waitForExistence(ros::Duration(1)));
@@ -50,8 +49,7 @@ TEST(TESTSuite, changeString)
  * 
  */
 int main(int argc,
-         char **argv)
-{
+         char **argv) {
   ros::init(argc, argv, "change_output_string");
   nh.reset(new ros::NodeHandle);
   testing::InitGoogleTest(&argc, argv);
