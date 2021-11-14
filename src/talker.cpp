@@ -134,7 +134,7 @@ int main(int argc, char **argv) {
      * 
      */
     br.sendTransform(tf::StampedTransform(tf::Transform(
-      tf::Quaternion(0, 0, 0, 1),
+      tf::Quaternion(0.2, 0.5, 0, 1),
      tf::Vector3(0.1, 0.0, 0.2)), ros::Time::now(), "world", "talk"));
     // ROS_INFO_STREAM(msg.data.c_str());
 
