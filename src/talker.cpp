@@ -20,6 +20,7 @@
  */
 #include <sstream>
 #include "ros/ros.h"
+#include "tf/transform_broadcaster.h"
 #include "std_msgs/String.h"
 #include "talker.h"
 #include "beginner_tutorials/string.h"
@@ -115,16 +116,26 @@ int main(int argc, char **argv) {
    * a unique string for each message.
    */
   int count = 0;
+
+  tf::TransformBroadcaster br;
+
   while (ros::ok()) {
     /**
      * This is a message object. You stuff it with data, and then publish it.
      */
-     std_msgs::String msg;
-
+    std_msgs::String msg;
     std::stringstream ss;
     ss << new_string;
     msg.data = ss.str();
 
+    /**
+     * @brief broadcast a static transformation with nonzero roational 
+     * and translational components called /talk with parent /world
+     * 
+     */
+    br.sendTransform(tf::StampedTransform(tf::Transform(
+      tf::Quaternion(0.2, 0.5, 0, 1),
+     tf::Vector3(0.1, 0.0, 0.2)), ros::Time::now(), "world", "talk"));
     // ROS_INFO_STREAM(msg.data.c_str());
 
     /**
