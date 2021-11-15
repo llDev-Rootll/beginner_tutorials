@@ -44,7 +44,7 @@ The tf tree can be viewed by running the command :
     rosrun rqt_tf_tree rqt_tf_tree
 
 ## Running the rostests
-The test cases can be run by running the following commands in a terminal:
+The test cases can be run by running the following commands in a terminal at the root directory of your workspace:
 
     catkin_make tests
     catkin_make test
